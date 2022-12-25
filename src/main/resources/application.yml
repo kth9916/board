@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: greendb
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
