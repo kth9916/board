@@ -11,4 +11,5 @@ public class Board {
     private String _id;
     private String title;
     private String content;
+    private int boardNo;
 }
