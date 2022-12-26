@@ -39,6 +39,9 @@ public class BoardController {
         return boardRepository.findAll();
     }
 
+    @GetMapping("/board/findByBoardKind/{boardKind}")
+    public List<Board> findByBoardKind(@PathVariable int boardKind){return boardRepository.findByBoardKind(boardKind);}
+
     @GetMapping("/board/findByTitle/{title}")
     public Board findByTitle(@PathVariable String title){
         return boardRepository.findByTitle(title);
