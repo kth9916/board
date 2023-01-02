@@ -2,7 +2,6 @@ package com.example.board.domain.member.contorller;
 
 import com.example.board.domain.member.dto.SignRequest;
 import com.example.board.domain.member.dto.SignResponse;
-import com.example.board.domain.member.repository.MemberRepository;
 import com.example.board.domain.member.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class SignController {
-    private final MemberRepository memberRepository;
     private final SignService memberService;
 
     @PostMapping(value = "/login")
