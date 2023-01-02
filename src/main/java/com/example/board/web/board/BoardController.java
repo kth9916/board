@@ -1,7 +1,8 @@
-package com.example.board.web;
+package com.example.board.web.board;
 
-import com.example.board.domain.Board;
-import com.example.board.domain.BoardRepository;
+import com.example.board.domain.board.Board;
+import com.example.board.domain.board.BoardRepository;
+import com.example.board.web.board.dto.BoardSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

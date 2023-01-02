@@ -1,6 +1,6 @@
-package com.example.board.web;
+package com.example.board.web.board.dto;
 
-import com.example.board.domain.Board;
+import com.example.board.domain.board.Board;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,12 +1,32 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        show_sql: true #show sql
   data:
     mongodb:
       host: localhost
       port: 27017
       database: greendb
+  datasource:
+    username: root
+    password: 12345678
+    driver-class-name: org.mariadb.jdbc.Driver
+    url : jdbc:mariadb://localhost:3305/member?characterEncoding=UTF-8&serverTimezone=UTC
+
 server:
   servlet:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
+jwt:
+  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql: trace #show parameter binding
+      SQL: DEBUG

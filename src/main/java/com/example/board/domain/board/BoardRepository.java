@@ -1,4 +1,4 @@
-package com.example.board.domain;
+package com.example.board.domain.board;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
