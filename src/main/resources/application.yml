@@ -1,11 +1,11 @@
 spring:
   jpa:
-    hibernate:
-      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        format_sql: true #To beautify or pretty print the SQL
-        show_sql: true #show sql
+        default_batch_fetch_size: 1000
+    hibernate:
+      ddl-auto: create
   data:
     mongodb:
       host: localhost
@@ -24,7 +24,7 @@ server:
       enabled: true
       force: true
 jwt:
-  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+  secret: fUjXn2r5u8x/A?D(G+KbPdSgVkYp3s6v
 logging:
   level:
     org.hibernate:

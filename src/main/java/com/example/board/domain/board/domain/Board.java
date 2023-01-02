@@ -1,4 +1,4 @@
-package com.example.board.domain.board;
+package com.example.board.domain.board.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

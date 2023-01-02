@@ -1,5 +1,6 @@
-package com.example.board.domain.board;
+package com.example.board.domain.board.repository;
 
+import com.example.board.domain.board.domain.Board;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
