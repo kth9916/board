@@ -1,4 +1,7 @@
 spring:
+  redis:
+    host: localhost
+    port: 6379
   jpa:
     show-sql: true
     properties:
@@ -24,6 +27,7 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+  port: 9191
 jwt:
   secret:
     key : fUjXn2r5u8x/A?D(G+KbPdSgVkYp3s6v

@@ -3,6 +3,8 @@ package com.example.board.domain.member.contorller;
 import com.example.board.domain.member.dto.SignRequest;
 import com.example.board.domain.member.dto.SignResponse;
 import com.example.board.domain.member.service.SignService;
+import com.example.board.global.security.Token;
+import com.example.board.global.security.TokenDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +33,10 @@ public class SignController {
     @GetMapping("/admin/get")
     public ResponseEntity<SignResponse> getUserForAdmin(@RequestParam String account) throws Exception {
         return new ResponseEntity<>( memberService.getMember(account), HttpStatus.OK);
+    }
+
+    @GetMapping("/refresh")
+    public ResponseEntity<TokenDto> refresh(@RequestBody TokenDto token) throws Exception {
+        return new ResponseEntity<>(memberService.refreshAccessToken(token),HttpStatus.OK);
     }
 }

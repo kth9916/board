@@ -2,6 +2,7 @@ package com.example.board.domain.member.dto;
 
 import com.example.board.domain.member.domain.Authority;
 import com.example.board.domain.member.domain.Member;
+import com.example.board.global.security.TokenDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class SignResponse {
 
     private List<Authority> roles = new ArrayList<>();
 
-    private String token;
+    private TokenDto token;
 
     public SignResponse(Member member) {
         this.id = member.getId();

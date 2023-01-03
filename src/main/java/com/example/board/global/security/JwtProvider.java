@@ -1,10 +1,7 @@
 package com.example.board.global.security;
 
 import com.example.board.domain.member.domain.Authority;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,11 +54,6 @@ public class JwtProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    // 토큰에 담겨있는 유저 account 획득
-    public String getAccount(String token) {
-        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
-    }
-
     // Authorization Header를 통해 인증을 한다.
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("Authorization");
@@ -82,5 +74,19 @@ public class JwtProvider {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // 토큰에 담겨 있는 유저 account 획득
+    public String getAccount(String token){
+        // 만료된 토큰에 대해 parseClaimsJws를 수행하면 io.jsonwebtoken.ExpiredJwtException이 발생한다.
+        try {
+            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
+        }catch (ExpiredJwtException e){
+            e.printStackTrace();
+            return e.getClaims().getSubject();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 }
