@@ -80,11 +80,13 @@ public class SignService {
      * 형태로 저장한다.
      */
     public String createRefreshToken(Member member){
+        // 2주
+        int exp = 1000 * 60 * 60 * 24 * 14;
         Token token = tokenRepository.save(
                 Token.builder()
                         .id(member.getId())
                         .refresh_token(UUID.randomUUID().toString())
-                        .expiration(300)
+                        .expiration(exp)
                         .build()
         );
         return token.getRefresh_token();

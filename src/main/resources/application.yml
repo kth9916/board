@@ -14,7 +14,7 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: greendb
+      database: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -27,7 +27,7 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-  port: 9191
+  port: 8080
 jwt:
   secret:
     key : fUjXn2r5u8x/A?D(G+KbPdSgVkYp3s6v
