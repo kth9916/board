@@ -36,7 +36,7 @@ public class SignController {
         return new ResponseEntity<>( memberService.getMember(account), HttpStatus.OK);
     }
 
-    @GetMapping("/refresh")
+    @PostMapping("/refresh")
     public ResponseEntity<TokenDto> refresh(@RequestBody TokenDto token) throws Exception {
         return new ResponseEntity<>(memberService.refreshAccessToken(token),HttpStatus.OK);
     }

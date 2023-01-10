@@ -1,13 +1,18 @@
 package com.example.board.global.security;
 
 import com.example.board.domain.member.domain.Authority;
+import com.example.board.domain.member.domain.Member;
+import com.example.board.domain.member.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,9 +21,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class JwtProvider {
     @Value("${jwt.secret.key}")
     private String salt;
@@ -26,6 +33,7 @@ public class JwtProvider {
     private Key secretKey;
 
     private final JpaUserDetailsService userDetailsService;
+    private final TokenRepository tokenRepository;
 
     @PostConstruct
     protected void init() {
@@ -59,6 +67,12 @@ public class JwtProvider {
         return request.getHeader("Authorization");
     }
 
+    public String resolveRefreshToken(HttpServletRequest request){
+        if(request.getHeader("refresh_token") != null)
+            return request.getHeader("refresh_token");
+        return null;
+    }
+
     // 토큰 검증
     public boolean validateToken(String token) {
         try {
@@ -89,4 +103,47 @@ public class JwtProvider {
         }
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
+
+    /**
+     * Refresh 토큰을 생성한다.
+     * Redis 내부에는
+     * refreshToken : memberId : TokenValue
+     * 형태로 저장한다.
+     */
+    public String createRefreshToken(Member member){
+        // 2주
+        int exp = 1000 * 60 * 60 * 24 * 14;
+        Token token = tokenRepository.save(
+                Token.builder()
+                        .id(member.getId())
+                        .refresh_token(UUID.randomUUID().toString())
+                        .expiration(exp)
+                        .build()
+        );
+        return token.getRefresh_token();
+    }
+
+    public Token validRefreshToken(Member member, String refreshToken) throws Exception {
+        Token token = tokenRepository.findById(member.getId()).orElseThrow(() -> new Exception("만료된 계정입니다. 로그인을 다시 시도해주세요. "));
+        // 해당 유저의 Refresh 토큰 만료 : Redis에 해당 유저의 토큰이 존재하지 않음
+        if (token.getRefresh_token() == null){
+            return null;
+        }else {
+            //  리프레쉬 토큰 만료일자가 얼마 남지 않았을 때 만료시간 연장
+            if(token.getExpiration() < 10){
+                token.setExpiration(1000);
+                tokenRepository.save(token);
+            }
+
+            // 토큰이 같은지 비교
+            if(!token.getRefresh_token().equals(refreshToken)){
+                return null;
+            }else {
+                return token;
+            }
+        }
+    }
+
+
+
 }
