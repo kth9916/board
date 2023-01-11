@@ -14,12 +14,15 @@ public class BoardSaveDto {
     private String registeredDate;
     private String userName;
 
+    private String userId;
+
     public Board toEntity(){
         Board board = new Board();
         board.setTitle(title);
         board.setContent(content);
         board.setBoardKind(boardKind);
         board.setUserName(userName);
+        board.setUserId(userId);
 
         // 현재 날짜/시간
         LocalDateTime now = LocalDateTime.now();

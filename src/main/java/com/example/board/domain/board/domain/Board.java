@@ -17,4 +17,5 @@ public class Board {
     private String content;
     private int boardKind;
     private String registeredDate;
+    private String userId;
 }

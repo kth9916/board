@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // 회원가입과 로그인은 모두 승인
                 //  "/board/findByTitle/**", "/board/findByBoardKind/**", "/board/findById/**", "/board/findAll"
-                .antMatchers("/member/register", "/member/login", "/member/refresh").permitAll()
+                .antMatchers("/member/register", "/member/login", "/member/refresh", "board/findAll", "/board/findByBoardKind/**", "/board/findById/**").permitAll()
                 // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
                 .antMatchers("/member/admin/**", "/board/**/**").hasRole("ADMIN")
                 // /user 로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
