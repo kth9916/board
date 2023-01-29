@@ -1,33 +1,36 @@
 spring:
+  session:
+    store-type: redis
   redis:
-    host: localhost
+    host: kth-redis
     port: 6379
   jpa:
     show-sql: true
     properties:
       hibernate:
         default_batch_fetch_size: 1000
+        format_sql: true
+        dialect : org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      ddl-auto: create
+    generate-ddl: false
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: local
+      uri: mongodb://kth-mongodb:27017/local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
-    url: jdbc:mysql://localhost:3306/local?characterEncoding=utf8&useUnicode=true&mysqlEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Seoul
+#    url: jdbc:mysql://localhost:3306/local?characterEncoding=utf8&useUnicode=true&mysqlEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://kth-mysql:3306/local?useSSL=false&characterEncoding=utf8&useUnicode=true&mysqlEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Seoul
 
-server:
-  servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-  port: 8080
+#server:
+#  servlet:
+#    encoding:
+#      charset: UTF-8
+#      enabled: true
+#      force: true
+#  port: 8080
 jwt:
   secret:
     key : fUjXn2r5u8x/A?D(G+KbPdSgVkYp3s6v
