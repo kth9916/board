@@ -3,9 +3,9 @@ package com.kth.board.domain.board.domain;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Data
 @Document(collection = "board")
@@ -18,4 +18,5 @@ public class Board {
     private int boardKind;
     private String registeredDate;
     private String userId;
+    private byte[] image;
 }

@@ -1,0 +1,5 @@
+## DB 스키마 생성
+
+use mysql;
+CREATE DATABASE local CHARACTER SET utf8 COLLATE utf8_genral_ci;
+Create user

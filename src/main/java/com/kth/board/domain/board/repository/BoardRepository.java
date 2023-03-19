@@ -9,4 +9,6 @@ public interface BoardRepository extends MongoRepository<Board, String> {
     Board findByTitle(String title);
 
     List<Board> findByBoardKind(int boardKind);
+    List<Board> findByUserIdAndBoardKind(String userId, int BoardKind);
+    List<Board> findByUserId(String userId);
 }
